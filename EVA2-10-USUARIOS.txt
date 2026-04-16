@@ -1,0 +1,404 @@
+MySQL Shell 8.0.45
+
+Copyright (c) 2016, 2026, Oracle and/or its affiliates.
+Oracle is a registered trademark of Oracle Corporation and/or its affiliates.
+Other names may be trademarks of their respective owners.
+
+Type '\help' or '\?' for help; '\quit' to exit.
+ MySQL  JS > \sql
+Switching to SQL mode... Commands end with ;
+ MySQL  SQL > \connect --mc root@localhost
+Creating a Classic session to 'root@localhost'
+MySQL Error 2003 (HY000): Can't connect to MySQL server on 'localhost:3306' (10061)
+ MySQL  SQL > \connect --mc root@localhost
+Creating a Classic session to 'root@localhost'
+Fetching global names for auto-completion... Press ^C to stop.
+Your MySQL connection id is 8
+Server version: 8.0.45 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > \use sakila
+Default schema set to `sakila`.
+Fetching global names, object names from `sakila` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  sakila  SQL > create user 'prueba'@'localhost' identified by '23550385';
+Query OK, 0 rows affected (0.0161 sec)
+ MySQL  localhost:3306 ssl  sakila  SQL > use mysql
+Default schema set to `mysql`.
+Fetching global names, object names from `mysql` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  mysql  SQL > select host, user from duser;
+ERROR: 1146 (42S02): Table 'mysql.duser' doesn't exist
+ MySQL  localhost:3306 ssl  mysql  SQL > select host, user from user;
++-----------+------------------+
+| host      | user             |
++-----------+------------------+
+| %         | canomaro         |
+| localhost | mysql.infoschema |
+| localhost | mysql.session    |
+| localhost | mysql.sys        |
+| localhost | prueba           |
+| localhost | root             |
++-----------+------------------+
+6 rows in set (0.0009 sec)
+ MySQL  localhost:3306 ssl  mysql  SQL > \connect --mc prueba@localhost;
+Creating a Classic session to 'prueba@localhost;'
+Please provide the password for 'prueba@localhost;': ********
+MySQL Error 2005 (HY000): Unknown MySQL server host 'localhost;' (11001)
+ MySQL  localhost:3306 ssl  mysql  SQL > \connect --mc prueba@localhost
+Creating a Classic session to 'prueba@localhost'
+Please provide the password for 'prueba@localhost': ********
+Save password for 'prueba@localhost'? [Y]es/[N]o/Ne[v]er (default No): Y
+Fetching global names for auto-completion... Press ^C to stop.
+Error during auto-completion cache update: Access denied; you need (at least one of) the PROCESS privilege(s) for this operation
+Closing old connection...
+Your MySQL connection id is 9
+Server version: 8.0.45 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| performance_schema |
++--------------------+
+2 rows in set (0.0049 sec)
+ MySQL  localhost:3306 ssl  SQL > crate databases prueba;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'crate databases prueba' at line 1
+ MySQL  localhost:3306 ssl  SQL > crate database prueba;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'crate database prueba' at line 1
+ MySQL  localhost:3306 ssl  SQL > create database prueba;
+ERROR: 1044 (42000): Access denied for user 'prueba'@'localhost' to database 'prueba'
+ MySQL  localhost:3306 ssl  SQL > \disconnect
+ MySQL  SQL > \connect --mc root@localhost
+Creating a Classic session to 'root@localhost'
+Fetching global names for auto-completion... Press ^C to stop.
+Your MySQL connection id is 10
+Server version: 8.0.45 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > use mysql;
+Default schema set to `mysql`.
+Fetching global names, object names from `mysql` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  mysql  SQL > show tables;
++------------------------------------------------------+
+| Tables_in_mysql                                      |
++------------------------------------------------------+
+| columns_priv                                         |
+| component                                            |
+| db                                                   |
+| default_roles                                        |
+| engine_cost                                          |
+| func                                                 |
+| general_log                                          |
+| global_grants                                        |
+| gtid_executed                                        |
+| help_category                                        |
+| help_keyword                                         |
+| help_relation                                        |
+| help_topic                                           |
+| innodb_index_stats                                   |
+| innodb_table_stats                                   |
+| ndb_binlog_index                                     |
+| password_history                                     |
+| plugin                                               |
+| procs_priv                                           |
+| proxies_priv                                         |
+| replication_asynchronous_connection_failover         |
+| replication_asynchronous_connection_failover_managed |
+| replication_group_configuration_version              |
+| replication_group_member_actions                     |
+| role_edges                                           |
+| server_cost                                          |
+| servers                                              |
+| slave_master_info                                    |
+| slave_relay_log_info                                 |
+| slave_worker_info                                    |
+| slow_log                                             |
+| tables_priv                                          |
+| time_zone                                            |
+| time_zone_leap_second                                |
+| time_zone_name                                       |
+| time_zone_transition                                 |
+| time_zone_transition_type                            |
+| user                                                 |
++------------------------------------------------------+
+38 rows in set (0.0047 sec)
+ MySQL  localhost:3306 ssl  mysql  SQL > show grants for prubea@localhost;
+ERROR: 1141 (42000): There is no such grant defined for user 'prubea' on host 'localhost'
+ MySQL  localhost:3306 ssl  mysql  SQL > show grants for prueba@localhost;
++--------------------------------------------+
+| Grants for prueba@localhost                |
++--------------------------------------------+
+| GRANT USAGE ON *.* TO `prueba`@`localhost` |
++--------------------------------------------+
+1 row in set (0.0005 sec)
+ MySQL  localhost:3306 ssl  mysql  SQL > grant select on sakila.* to prueba@localhost';
+                                      '>
+                                      '> ;
+                                      '> ^C
+ MySQL  localhost:3306 ssl  mysql  SQL > show grants for prueba@localhost;
++--------------------------------------------+
+| Grants for prueba@localhost                |
++--------------------------------------------+
+| GRANT USAGE ON *.* TO `prueba`@`localhost` |
++--------------------------------------------+
+1 row in set (0.0007 sec)
+ MySQL  localhost:3306 ssl  mysql  SQL > grant select on sakila.* to prueba@localhost;
+Query OK, 0 rows affected (0.0063 sec)
+ MySQL  localhost:3306 ssl  mysql  SQL > show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| taller1            |
+| taller2            |
+| tbd_exa1           |
+| world              |
++--------------------+
+9 rows in set (0.0024 sec)
+ MySQL  localhost:3306 ssl  mysql  SQL > \disconnect
+ MySQL  SQL > \connect --mc prueba@localhost
+Creating a Classic session to 'prueba@localhost'
+Fetching global names for auto-completion... Press ^C to stop.
+Error during auto-completion cache update: Access denied; you need (at least one of) the PROCESS privilege(s) for this operation
+Your MySQL connection id is 11
+Server version: 8.0.45 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > show tables;
+ERROR: 1046 (3D000): No database selected
+ MySQL  localhost:3306 ssl  SQL > show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| performance_schema |
+| sakila             |
++--------------------+
+3 rows in set (0.0011 sec)
+ MySQL  localhost:3306 ssl  SQL > show tables;
+ERROR: 1046 (3D000): No database selected
+ MySQL  localhost:3306 ssl  SQL > use sakila;
+Default schema set to `sakila`.
+Fetching global names, object names from `sakila` for auto-completion... Press ^C to stop.
+Error during auto-completion cache update: Access denied; you need (at least one of) the PROCESS privilege(s) for this operation
+ MySQL  localhost:3306 ssl  sakila  SQL > dropn table staff;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'dropn table staff' at line 1
+ MySQL  localhost:3306 ssl  sakila  SQL > drop table staff;
+ERROR: 1142 (42000): DROP command denied to user 'prueba'@'localhost' for table 'staff'
+ MySQL  localhost:3306 ssl  sakila  SQL > create table prueba(valor int);
+ERROR: 1142 (42000): CREATE command denied to user 'prueba'@'localhost' for table 'prueba'
+ MySQL  localhost:3306 ssl  sakila  SQL > \disconnect;
+Unknown command: '\disconnect;'
+ MySQL  localhost:3306 ssl  sakila  SQL > \connect --mc root@localhost
+Creating a Classic session to 'root@localhost'
+Fetching global names for auto-completion... Press ^C to stop.
+Closing old connection...
+Your MySQL connection id is 12
+Server version: 8.0.45 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > create user prueba2@localhost identified by '23550385';
+Query OK, 0 rows affected (0.0170 sec)
+ MySQL  localhost:3306 ssl  SQL > grant select on sakila.customer to prueba2@localhost
+                               -> ;
+Query OK, 0 rows affected (0.0065 sec)
+ MySQL  localhost:3306 ssl  SQL > \disconnect;
+Unknown command: '\disconnect;'
+ MySQL  localhost:3306 ssl  SQL > \disconnect
+ MySQL  SQL > \connect --mc prueba2@localhost
+Creating a Classic session to 'prueba2@localhost'
+Please provide the password for 'prueba2@localhost': ********
+Save password for 'prueba2@localhost'? [Y]es/[N]o/Ne[v]er (default No): Y
+Fetching global names for auto-completion... Press ^C to stop.
+Error during auto-completion cache update: Access denied; you need (at least one of) the PROCESS privilege(s) for this operation
+Your MySQL connection id is 13
+Server version: 8.0.45 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > use sakila;
+Default schema set to `sakila`.
+Fetching global names, object names from `sakila` for auto-completion... Press ^C to stop.
+Error during auto-completion cache update: Access denied; you need (at least one of) the PROCESS privilege(s) for this operation
+ MySQL  localhost:3306 ssl  sakila  SQL > select * from staff limit 100;
+ERROR: 1142 (42000): SELECT command denied to user 'prueba2'@'localhost' for table 'staff'
+ MySQL  localhost:3306 ssl  sakila  SQL > select * from customer limit 100;
++-------------+----------+------------+------------+---------------------------------------+------------+--------+---------------------+---------------------+
+| customer_id | store_id | first_name | last_name  | email                                 | address_id | active | create_date         | last_update         |
++-------------+----------+------------+------------+---------------------------------------+------------+--------+---------------------+---------------------+
+|           1 |        1 | MARY       | SMITH      | MARY.SMITH@sakilacustomer.org         |          5 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|           2 |        1 | PATRICIA   | JOHNSON    | PATRICIA.JOHNSON@sakilacustomer.org   |          6 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|           3 |        1 | LINDA      | WILLIAMS   | LINDA.WILLIAMS@sakilacustomer.org     |          7 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|           4 |        2 | BARBARA    | JONES      | BARBARA.JONES@sakilacustomer.org      |          8 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|           5 |        1 | ELIZABETH  | BROWN      | ELIZABETH.BROWN@sakilacustomer.org    |          9 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|           6 |        2 | JENNIFER   | DAVIS      | JENNIFER.DAVIS@sakilacustomer.org     |         10 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|           7 |        1 | MARIA      | MILLER     | MARIA.MILLER@sakilacustomer.org       |         11 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|           8 |        2 | SUSAN      | WILSON     | SUSAN.WILSON@sakilacustomer.org       |         12 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|           9 |        2 | MARGARET   | MOORE      | MARGARET.MOORE@sakilacustomer.org     |         13 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          10 |        1 | DOROTHY    | TAYLOR     | DOROTHY.TAYLOR@sakilacustomer.org     |         14 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          11 |        2 | LISA       | ANDERSON   | LISA.ANDERSON@sakilacustomer.org      |         15 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          12 |        1 | NANCY      | THOMAS     | NANCY.THOMAS@sakilacustomer.org       |         16 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          13 |        2 | KAREN      | JACKSON    | KAREN.JACKSON@sakilacustomer.org      |         17 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          14 |        2 | BETTY      | WHITE      | BETTY.WHITE@sakilacustomer.org        |         18 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          15 |        1 | HELEN      | HARRIS     | HELEN.HARRIS@sakilacustomer.org       |         19 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          16 |        2 | SANDRA     | MARTIN     | SANDRA.MARTIN@sakilacustomer.org      |         20 |      0 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          17 |        1 | DONNA      | THOMPSON   | DONNA.THOMPSON@sakilacustomer.org     |         21 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          18 |        2 | CAROL      | GARCIA     | CAROL.GARCIA@sakilacustomer.org       |         22 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          19 |        1 | RUTH       | MARTINEZ   | RUTH.MARTINEZ@sakilacustomer.org      |         23 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          20 |        2 | SHARON     | ROBINSON   | SHARON.ROBINSON@sakilacustomer.org    |         24 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          21 |        1 | MICHELLE   | CLARK      | MICHELLE.CLARK@sakilacustomer.org     |         25 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          22 |        1 | LAURA      | RODRIGUEZ  | LAURA.RODRIGUEZ@sakilacustomer.org    |         26 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          23 |        2 | SARAH      | LEWIS      | SARAH.LEWIS@sakilacustomer.org        |         27 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          24 |        2 | KIMBERLY   | LEE        | KIMBERLY.LEE@sakilacustomer.org       |         28 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          25 |        1 | DEBORAH    | WALKER     | DEBORAH.WALKER@sakilacustomer.org     |         29 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          26 |        2 | JESSICA    | HALL       | JESSICA.HALL@sakilacustomer.org       |         30 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          27 |        2 | SHIRLEY    | ALLEN      | SHIRLEY.ALLEN@sakilacustomer.org      |         31 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          28 |        1 | CYNTHIA    | YOUNG      | CYNTHIA.YOUNG@sakilacustomer.org      |         32 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          29 |        2 | ANGELA     | HERNANDEZ  | ANGELA.HERNANDEZ@sakilacustomer.org   |         33 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          30 |        1 | MELISSA    | KING       | MELISSA.KING@sakilacustomer.org       |         34 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          31 |        2 | BRENDA     | WRIGHT     | BRENDA.WRIGHT@sakilacustomer.org      |         35 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          32 |        1 | AMY        | LOPEZ      | AMY.LOPEZ@sakilacustomer.org          |         36 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          33 |        2 | ANNA       | HILL       | ANNA.HILL@sakilacustomer.org          |         37 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          34 |        2 | REBECCA    | SCOTT      | REBECCA.SCOTT@sakilacustomer.org      |         38 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          35 |        2 | VIRGINIA   | GREEN      | VIRGINIA.GREEN@sakilacustomer.org     |         39 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          36 |        2 | KATHLEEN   | ADAMS      | KATHLEEN.ADAMS@sakilacustomer.org     |         40 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          37 |        1 | PAMELA     | BAKER      | PAMELA.BAKER@sakilacustomer.org       |         41 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          38 |        1 | MARTHA     | GONZALEZ   | MARTHA.GONZALEZ@sakilacustomer.org    |         42 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          39 |        1 | DEBRA      | NELSON     | DEBRA.NELSON@sakilacustomer.org       |         43 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          40 |        2 | AMANDA     | CARTER     | AMANDA.CARTER@sakilacustomer.org      |         44 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          41 |        1 | STEPHANIE  | MITCHELL   | STEPHANIE.MITCHELL@sakilacustomer.org |         45 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          42 |        2 | CAROLYN    | PEREZ      | CAROLYN.PEREZ@sakilacustomer.org      |         46 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          43 |        2 | CHRISTINE  | ROBERTS    | CHRISTINE.ROBERTS@sakilacustomer.org  |         47 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          44 |        1 | MARIE      | TURNER     | MARIE.TURNER@sakilacustomer.org       |         48 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          45 |        1 | JANET      | PHILLIPS   | JANET.PHILLIPS@sakilacustomer.org     |         49 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          46 |        2 | CATHERINE  | CAMPBELL   | CATHERINE.CAMPBELL@sakilacustomer.org |         50 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          47 |        1 | FRANCES    | PARKER     | FRANCES.PARKER@sakilacustomer.org     |         51 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          48 |        1 | ANN        | EVANS      | ANN.EVANS@sakilacustomer.org          |         52 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          49 |        2 | JOYCE      | EDWARDS    | JOYCE.EDWARDS@sakilacustomer.org      |         53 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          50 |        1 | DIANE      | COLLINS    | DIANE.COLLINS@sakilacustomer.org      |         54 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          51 |        1 | ALICE      | STEWART    | ALICE.STEWART@sakilacustomer.org      |         55 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          52 |        1 | JULIE      | SANCHEZ    | JULIE.SANCHEZ@sakilacustomer.org      |         56 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          53 |        1 | HEATHER    | MORRIS     | HEATHER.MORRIS@sakilacustomer.org     |         57 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          54 |        1 | TERESA     | ROGERS     | TERESA.ROGERS@sakilacustomer.org      |         58 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          55 |        2 | DORIS      | REED       | DORIS.REED@sakilacustomer.org         |         59 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          56 |        1 | GLORIA     | COOK       | GLORIA.COOK@sakilacustomer.org        |         60 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          57 |        2 | EVELYN     | MORGAN     | EVELYN.MORGAN@sakilacustomer.org      |         61 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          58 |        1 | JEAN       | BELL       | JEAN.BELL@sakilacustomer.org          |         62 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          59 |        1 | CHERYL     | MURPHY     | CHERYL.MURPHY@sakilacustomer.org      |         63 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          60 |        1 | MILDRED    | BAILEY     | MILDRED.BAILEY@sakilacustomer.org     |         64 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          61 |        2 | KATHERINE  | RIVERA     | KATHERINE.RIVERA@sakilacustomer.org   |         65 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          62 |        1 | JOAN       | COOPER     | JOAN.COOPER@sakilacustomer.org        |         66 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          63 |        1 | ASHLEY     | RICHARDSON | ASHLEY.RICHARDSON@sakilacustomer.org  |         67 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          64 |        2 | JUDITH     | COX        | JUDITH.COX@sakilacustomer.org         |         68 |      0 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          65 |        2 | ROSE       | HOWARD     | ROSE.HOWARD@sakilacustomer.org        |         69 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          66 |        2 | JANICE     | WARD       | JANICE.WARD@sakilacustomer.org        |         70 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          67 |        1 | KELLY      | TORRES     | KELLY.TORRES@sakilacustomer.org       |         71 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          68 |        1 | NICOLE     | PETERSON   | NICOLE.PETERSON@sakilacustomer.org    |         72 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          69 |        2 | JUDY       | GRAY       | JUDY.GRAY@sakilacustomer.org          |         73 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          70 |        2 | CHRISTINA  | RAMIREZ    | CHRISTINA.RAMIREZ@sakilacustomer.org  |         74 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          71 |        1 | KATHY      | JAMES      | KATHY.JAMES@sakilacustomer.org        |         75 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          72 |        2 | THERESA    | WATSON     | THERESA.WATSON@sakilacustomer.org     |         76 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          73 |        2 | BEVERLY    | BROOKS     | BEVERLY.BROOKS@sakilacustomer.org     |         77 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          74 |        1 | DENISE     | KELLY      | DENISE.KELLY@sakilacustomer.org       |         78 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          75 |        2 | TAMMY      | SANDERS    | TAMMY.SANDERS@sakilacustomer.org      |         79 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          76 |        2 | IRENE      | PRICE      | IRENE.PRICE@sakilacustomer.org        |         80 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          77 |        2 | JANE       | BENNETT    | JANE.BENNETT@sakilacustomer.org       |         81 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          78 |        1 | LORI       | WOOD       | LORI.WOOD@sakilacustomer.org          |         82 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          79 |        1 | RACHEL     | BARNES     | RACHEL.BARNES@sakilacustomer.org      |         83 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          80 |        1 | MARILYN    | ROSS       | MARILYN.ROSS@sakilacustomer.org       |         84 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          81 |        1 | ANDREA     | HENDERSON  | ANDREA.HENDERSON@sakilacustomer.org   |         85 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          82 |        1 | KATHRYN    | COLEMAN    | KATHRYN.COLEMAN@sakilacustomer.org    |         86 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          83 |        1 | LOUISE     | JENKINS    | LOUISE.JENKINS@sakilacustomer.org     |         87 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          84 |        2 | SARA       | PERRY      | SARA.PERRY@sakilacustomer.org         |         88 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          85 |        2 | ANNE       | POWELL     | ANNE.POWELL@sakilacustomer.org        |         89 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          86 |        2 | JACQUELINE | LONG       | JACQUELINE.LONG@sakilacustomer.org    |         90 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          87 |        1 | WANDA      | PATTERSON  | WANDA.PATTERSON@sakilacustomer.org    |         91 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          88 |        2 | BONNIE     | HUGHES     | BONNIE.HUGHES@sakilacustomer.org      |         92 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          89 |        1 | JULIA      | FLORES     | JULIA.FLORES@sakilacustomer.org       |         93 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          90 |        2 | RUBY       | WASHINGTON | RUBY.WASHINGTON@sakilacustomer.org    |         94 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          91 |        2 | LOIS       | BUTLER     | LOIS.BUTLER@sakilacustomer.org        |         95 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          92 |        2 | TINA       | SIMMONS    | TINA.SIMMONS@sakilacustomer.org       |         96 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          93 |        1 | PHYLLIS    | FOSTER     | PHYLLIS.FOSTER@sakilacustomer.org     |         97 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          94 |        1 | NORMA      | GONZALES   | NORMA.GONZALES@sakilacustomer.org     |         98 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          95 |        2 | PAULA      | BRYANT     | PAULA.BRYANT@sakilacustomer.org       |         99 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          96 |        1 | DIANA      | ALEXANDER  | DIANA.ALEXANDER@sakilacustomer.org    |        100 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          97 |        2 | ANNIE      | RUSSELL    | ANNIE.RUSSELL@sakilacustomer.org      |        101 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          98 |        1 | LILLIAN    | GRIFFIN    | LILLIAN.GRIFFIN@sakilacustomer.org    |        102 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          99 |        2 | EMILY      | DIAZ       | EMILY.DIAZ@sakilacustomer.org         |        103 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|         100 |        1 | ROBIN      | HAYES      | ROBIN.HAYES@sakilacustomer.org        |        104 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
++-------------+----------+------------+------------+---------------------------------------+------------+--------+---------------------+---------------------+
+100 rows in set (0.0132 sec)
+ MySQL  localhost:3306 ssl  sakila  SQL > \disconnect
+ MySQL  SQL > \connect --mc root@localhost
+Creating a Classic session to 'root@localhost'
+Fetching global names for auto-completion... Press ^C to stop.
+Your MySQL connection id is 14
+Server version: 8.0.45 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > create user prueba3@localhost identified by '23550385';
+Query OK, 0 rows affected (0.0110 sec)
+ MySQL  localhost:3306 ssl  SQL > grant select(first_name, last_name) on sakila.customer to prueba 3;
+ERROR: 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '3' at line 1
+ MySQL  localhost:3306 ssl  SQL > grant select(first_name, last_name) on sakila.customer to prueba3;
+ERROR: 1410 (42000): You are not allowed to create a user with GRANT
+ MySQL  localhost:3306 ssl  SQL > grant select(first_name, last_name) on sakila.customer to prueba3;
+ERROR: 1410 (42000): You are not allowed to create a user with GRANT
+ MySQL  localhost:3306 ssl  SQL > grant select(first_name, last_name) on sakila.customer to prueba3@localhost;
+Query OK, 0 rows affected (0.0041 sec)
+ MySQL  localhost:3306 ssl  SQL > \disconnect
+ MySQL  SQL > \connect --mc prueba3@localhost
+Creating a Classic session to 'prueba3@localhost'
+Please provide the password for 'prueba3@localhost': ********
+MySQL Error 1045 (28000): Access denied for user 'prueba3'@'localhost' (using password: YES)
+ MySQL  SQL > y
+ERROR: Not connected.
+           -> \connect --mc prueba3@localhost
+           -> ^C
+ MySQL  SQL > \disconnect
+Already disconnected.
+ MySQL  SQL > \connect --mc prueba3@localhost
+Creating a Classic session to 'prueba3@localhost'
+Please provide the password for 'prueba3@localhost': ********
+Save password for 'prueba3@localhost'? [Y]es/[N]o/Ne[v]er (default No): y
+Fetching global names for auto-completion... Press ^C to stop.
+Error during auto-completion cache update: Access denied; you need (at least one of) the PROCESS privilege(s) for this operation
+Your MySQL connection id is 16
+Server version: 8.0.45 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > select first_name, last_name from customer limit 10;
+ERROR: 1046 (3D000): No database selected
+ MySQL  localhost:3306 ssl  SQL > use sakila;
+Default schema set to `sakila`.
+Fetching global names, object names from `sakila` for auto-completion... Press ^C to stop.
+Error during auto-completion cache update: Access denied; you need (at least one of) the PROCESS privilege(s) for this operation
+ MySQL  localhost:3306 ssl  sakila  SQL > use sakila;
+Default schema set to `sakila`.
+Fetching global names, object names from `sakila` for auto-completion... Press ^C to stop.
+Error during auto-completion cache update: Access denied; you need (at least one of) the PROCESS privilege(s) for this operation
+ MySQL  localhost:3306 ssl  sakila  SQL > select first_name, last_name from customer limit 10;
++------------+-----------+
+| first_name | last_name |
++------------+-----------+
+| MARY       | SMITH     |
+| PATRICIA   | JOHNSON   |
+| LINDA      | WILLIAMS  |
+| BARBARA    | JONES     |
+| ELIZABETH  | BROWN     |
+| JENNIFER   | DAVIS     |
+| MARIA      | MILLER    |
+| SUSAN      | WILSON    |
+| MARGARET   | MOORE     |
+| DOROTHY    | TAYLOR    |
++------------+-----------+
+10 rows in set (0.0012 sec)
+ MySQL  localhost:3306 ssl  sakila  SQL > select * from sakila limit 10;
+ERROR: 1142 (42000): SELECT command denied to user 'prueba3'@'localhost' for table 'sakila'
+ MySQL  localhost:3306 ssl  sakila  SQL > \
+                                        > disconnect
+                                        > ^C
+ MySQL  localhost:3306 ssl  sakila  SQL > \disconnect
+ MySQL  SQL > \connect --mc root@localhost
+Creating a Classic session to 'root@localhost'
+Fetching global names for auto-completion... Press ^C to stop.
+Your MySQL connection id is 17
+Server version: 8.0.45 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL >
