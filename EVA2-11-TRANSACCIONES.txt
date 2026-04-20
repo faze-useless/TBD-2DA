@@ -1,0 +1,337 @@
+MySQL Shell 8.0.45
+
+Copyright (c) 2016, 2026, Oracle and/or its affiliates.
+Oracle is a registered trademark of Oracle Corporation and/or its affiliates.
+Other names may be trademarks of their respective owners.
+
+Type '\help' or '\?' for help; '\quit' to exit.
+ MySQL  JS > \sql
+Switching to SQL mode... Commands end with ;
+ MySQL  SQL > \connect --mc root@localhost
+Creating a Classic session to 'root@localhost'
+Fetching global names for auto-completion... Press ^C to stop.
+Your MySQL connection id is 18
+Server version: 8.0.45 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > use mysql;
+Default schema set to `mysql`.
+Fetching global names, object names from `mysql` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  mysql  SQL > select user, host from user;
++------------------+-----------+
+| user             | host      |
++------------------+-----------+
+| canomaro         | %         |
+| mysql.infoschema | localhost |
+| mysql.session    | localhost |
+| mysql.sys        | localhost |
+| prueba           | localhost |
+| prueba2          | localhost |
+| prueba3          | localhost |
+| root             | localhost |
++------------------+-----------+
+8 rows in set (0.0009 sec)
+ MySQL  localhost:3306 ssl  mysql  SQL > create user 'prueba4'@'localhost' identified by '23550385';
+Query OK, 0 rows affected (0.0399 sec)
+ MySQL  localhost:3306 ssl  mysql  SQL > grant insert, select on sakila.customer to prueba4@localhost;
+Query OK, 0 rows affected (0.0122 sec)
+ MySQL  localhost:3306 ssl  mysql  SQL > \disconnect
+ MySQL  SQL > \connect --mc prueba4@localhost
+Creating a Classic session to 'prueba4@localhost'
+Please provide the password for 'prueba4@localhost': ********
+Save password for 'prueba4@localhost'? [Y]es/[N]o/Ne[v]er (default No): y
+Fetching global names for auto-completion... Press ^C to stop.
+Error during auto-completion cache update: Access denied; you need (at least one of) the PROCESS privilege(s) for this operation
+Your MySQL connection id is 19
+Server version: 8.0.45 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > use sakila;
+Default schema set to `sakila`.
+Fetching global names, object names from `sakila` for auto-completion... Press ^C to stop.
+Error during auto-completion cache update: Access denied; you need (at least one of) the PROCESS privilege(s) for this operation
+ MySQL  localhost:3306 ssl  sakila  SQL > select * from customer limit 10;
++-------------+----------+------------+-----------+-------------------------------------+------------+--------+---------------------+---------------------+
+| customer_id | store_id | first_name | last_name | email                               | address_id | active | create_date         | last_update         |
++-------------+----------+------------+-----------+-------------------------------------+------------+--------+---------------------+---------------------+
+|           1 |        1 | MARY       | SMITH     | MARY.SMITH@sakilacustomer.org       |          5 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|           2 |        1 | PATRICIA   | JOHNSON   | PATRICIA.JOHNSON@sakilacustomer.org |          6 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|           3 |        1 | LINDA      | WILLIAMS  | LINDA.WILLIAMS@sakilacustomer.org   |          7 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|           4 |        2 | BARBARA    | JONES     | BARBARA.JONES@sakilacustomer.org    |          8 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|           5 |        1 | ELIZABETH  | BROWN     | ELIZABETH.BROWN@sakilacustomer.org  |          9 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|           6 |        2 | JENNIFER   | DAVIS     | JENNIFER.DAVIS@sakilacustomer.org   |         10 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|           7 |        1 | MARIA      | MILLER    | MARIA.MILLER@sakilacustomer.org     |         11 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|           8 |        2 | SUSAN      | WILSON    | SUSAN.WILSON@sakilacustomer.org     |         12 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|           9 |        2 | MARGARET   | MOORE     | MARGARET.MOORE@sakilacustomer.org   |         13 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
+|          10 |        1 | DOROTHY    | TAYLOR    | DOROTHY.TAYLOR@sakilacustomer.org   |         14 |      1 | 2006-02-14 22:04:36 | 2006-02-15 04:57:20 |
++-------------+----------+------------+-----------+-------------------------------------+------------+--------+---------------------+---------------------+
+10 rows in set (0.0102 sec)
+ MySQL  localhost:3306 ssl  sakila  SQL > insert into customer(store_id, first_name, last_name, address_id) value (1, "Juan", "Nepomuceno", 1)
+                                       -> ;
+Query OK, 1 row affected (0.0557 sec)
+ MySQL  localhost:3306 ssl  sakila  SQL > select * from customer where last_name like "Nepo%";
++-------------+----------+------------+------------+-------+------------+--------+---------------------+---------------------+
+| customer_id | store_id | first_name | last_name  | email | address_id | active | create_date         | last_update         |
++-------------+----------+------------+------------+-------+------------+--------+---------------------+---------------------+
+|         601 |        1 | Juan       | Nepomuceno | NULL  |          1 |      1 | 2026-04-20 16:23:24 | 2026-04-20 16:23:24 |
++-------------+----------+------------+------------+-------+------------+--------+---------------------+---------------------+
+1 row in set (0.0094 sec)
+ MySQL  localhost:3306 ssl  sakila  SQL > delete from customer where customer_id = 601;
+ERROR: 1142 (42000): DELETE command denied to user 'prueba4'@'localhost' for table 'customer'
+ MySQL  localhost:3306 ssl  sakila  SQL > \disconnect
+ MySQL  SQL > \connect --mc root@localhost
+Creating a Classic session to 'root@localhost'
+Fetching global names for auto-completion... Press ^C to stop.
+Your MySQL connection id is 20
+Server version: 8.0.45 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > show grants for prueba4@localhost;
++----------------------------------------------------------------------+
+| Grants for prueba4@localhost                                         |
++----------------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `prueba4`@`localhost`                          |
+| GRANT SELECT, INSERT ON `sakila`.`customer` TO `prueba4`@`localhost` |
++----------------------------------------------------------------------+
+2 rows in set (0.0077 sec)
+ MySQL  localhost:3306 ssl  SQL > revoke insert on sakila.customer from prueba4@localhost;
+Query OK, 0 rows affected (0.0139 sec)
+ MySQL  localhost:3306 ssl  SQL > show grants for prueba4@localhost;
++--------------------------------------------------------------+
+| Grants for prueba4@localhost                                 |
++--------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `prueba4`@`localhost`                  |
+| GRANT SELECT ON `sakila`.`customer` TO `prueba4`@`localhost` |
++--------------------------------------------------------------+
+2 rows in set (0.0007 sec)
+ MySQL  localhost:3306 ssl  SQL > \disconnect
+ MySQL  SQL > \connect --mc root@localhost
+Creating a Classic session to 'root@localhost'
+Fetching global names for auto-completion... Press ^C to stop.
+Your MySQL connection id is 21
+Server version: 8.0.45 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > \disconnect
+ MySQL  SQL > \connect --mc prueba4@localhost
+Creating a Classic session to 'prueba4@localhost'
+Fetching global names for auto-completion... Press ^C to stop.
+Error during auto-completion cache update: Access denied; you need (at least one of) the PROCESS privilege(s) for this operation
+Your MySQL connection id is 22
+Server version: 8.0.45 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > use sakila;
+Default schema set to `sakila`.
+Fetching global names, object names from `sakila` for auto-completion... Press ^C to stop.
+Error during auto-completion cache update: Access denied; you need (at least one of) the PROCESS privilege(s) for this operation
+ MySQL  localhost:3306 ssl  sakila  SQL > insert into customer(store_id, first_name, last_name, address_id) value (1, "Carlos", "Nepomuceno", 1) ;
+ERROR: 1142 (42000): INSERT command denied to user 'prueba4'@'localhost' for table 'customer'
+ MySQL  localhost:3306 ssl  sakila  SQL > select * from customer where last_name like "Nepo%";
++-------------+----------+------------+------------+-------+------------+--------+---------------------+---------------------+
+| customer_id | store_id | first_name | last_name  | email | address_id | active | create_date         | last_update         |
++-------------+----------+------------+------------+-------+------------+--------+---------------------+---------------------+
+|         601 |        1 | Juan       | Nepomuceno | NULL  |          1 |      1 | 2026-04-20 16:23:24 | 2026-04-20 16:23:24 |
++-------------+----------+------------+------------+-------+------------+--------+---------------------+---------------------+
+1 row in set (0.0014 sec)
+ MySQL  localhost:3306 ssl  sakila  SQL > \disconnect
+ MySQL  SQL > \connect --mc root@localhost
+Creating a Classic session to 'root@localhost'
+Fetching global names for auto-completion... Press ^C to stop.
+Your MySQL connection id is 23
+Server version: 8.0.45 MySQL Community Server - GPL
+No default schema selected; type \use <schema> to set one.
+ MySQL  localhost:3306 ssl  SQL > show databases;
++--------------------+
+| Database           |
++--------------------+
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| taller1            |
+| taller2            |
+| tbd_exa1           |
+| world              |
++--------------------+
+9 rows in set (0.0087 sec)
+ MySQL  localhost:3306 ssl  SQL > use taller2;
+Default schema set to `taller2`.
+Fetching global names, object names from `taller2` for auto-completion... Press ^C to stop.
+ MySQL  localhost:3306 ssl  taller2  SQL > show tables;
++-------------------+
+| Tables_in_taller2 |
++-------------------+
+| categoria         |
+| cliente           |
+| direccion         |
+| producto          |
+| tabla_a           |
+| tabla_b           |
+| venta             |
+| venta_detalle     |
++-------------------+
+8 rows in set (0.0023 sec)
+ MySQL  localhost:3306 ssl  taller2  SQL > desc cliente;
++------------+------------------------+------+-----+---------+----------------+
+| Field      | Type                   | Null | Key | Default | Extra          |
++------------+------------------------+------+-----+---------+----------------+
+| id_cliente | int                    | NO   | PRI | NULL    | auto_increment |
+| nombre     | varchar(50)            | NO   |     | NULL    |                |
+| apellidos  | varchar(50)            | YES  |     | NULL    |                |
+| tipo       | enum('Fisica','Moral') | YES  |     | Fisica  |                |
+| RFC        | varchar(13)            | YES  |     | NULL    |                |
++------------+------------------------+------+-----+---------+----------------+
+5 rows in set (0.0127 sec)
+ MySQL  localhost:3306 ssl  taller2  SQL > desc venta;
++------------+------+------+-----+---------+----------------+
+| Field      | Type | Null | Key | Default | Extra          |
++------------+------+------+-----+---------+----------------+
+| id_venta   | int  | NO   | PRI | NULL    | auto_increment |
+| fecha      | date | NO   |     | NULL    |                |
+| id_cliente | int  | YES  | MUL | NULL    |                |
++------------+------+------+-----+---------+----------------+
+3 rows in set (0.0107 sec)
+ MySQL  localhost:3306 ssl  taller2  SQL > desc venta_detalle;
++------------------+------+------+-----+---------+----------------+
+| Field            | Type | Null | Key | Default | Extra          |
++------------------+------+------+-----+---------+----------------+
+| id_venta_detalle | int  | NO   | PRI | NULL    | auto_increment |
+| id_venta         | int  | NO   | MUL | NULL    |                |
+| id_producto      | int  | NO   | MUL | NULL    |                |
+| cantidad         | int  | NO   |     | NULL    |                |
++------------------+------+------+-----+---------+----------------+
+4 rows in set (0.0026 sec)
+ MySQL  localhost:3306 ssl  taller2  SQL > select * from cliente;
++------------+----------+-----------+--------+---------------+
+| id_cliente | nombre   | apellidos | tipo   | RFC           |
++------------+----------+-----------+--------+---------------+
+|          6 | Kazuya   | NULL      | Fisica | AKSHSJDHI7891 |
+|          7 | Heihachi | NULL      | Fisica | AAAAAAAAAAAAA |
+|          8 | Jin      | NULL      | Fisica | KKKKKKKKKKKKK |
+|          9 | King     | NULL      | Fisica | BBBBBBBBB9999 |
++------------+----------+-----------+--------+---------------+
+4 rows in set (0.0131 sec)
+ MySQL  localhost:3306 ssl  taller2  SQL > select * from venta;
++----------+------------+------------+
+| id_venta | fecha      | id_cliente |
++----------+------------+------------+
+|        1 | 2026-03-09 |          6 |
+|        6 | 2026-03-12 |          6 |
++----------+------------+------------+
+2 rows in set (0.0125 sec)
+ MySQL  localhost:3306 ssl  taller2  SQL > select * from producto;
++-------------+----------------------+--------+--------------+
+| id_producto | nombre               | precio | id_categoria |
++-------------+----------------------+--------+--------------+
+|           1 | Lata de Coca         |  24.50 |            1 |
+|           2 | Takis Fuego          |  32.00 |            5 |
+|           3 | Galletas principe    |  26.00 |            2 |
+|           4 | Monster Energy 473ml |  49.00 |            1 |
++-------------+----------------------+--------+--------------+
+4 rows in set (0.0124 sec)
+ MySQL  localhost:3306 ssl  taller2  SQL > select * from venta_detalle;
++------------------+----------+-------------+----------+
+| id_venta_detalle | id_venta | id_producto | cantidad |
++------------------+----------+-------------+----------+
+|                1 |        1 |           1 |        5 |
+|                2 |        1 |           2 |        3 |
+|                3 |        1 |           2 |        1 |
++------------------+----------+-------------+----------+
+3 rows in set (0.0111 sec)
+ MySQL  localhost:3306 ssl  taller2  SQL > insert into venta(fecha, cliente_id) values('2026-04-20', 7);
+ERROR: 1054 (42S22): Unknown column 'cliente_id' in 'field list'
+ MySQL  localhost:3306 ssl  taller2  SQL > insert into venta(fecha, id_cliente) values('2026-04-20', 7);
+Query OK, 1 row affected (0.0097 sec)
+ MySQL  localhost:3306 ssl  taller2  SQL > select * from venta;
++----------+------------+------------+
+| id_venta | fecha      | id_cliente |
++----------+------------+------------+
+|        1 | 2026-03-09 |          6 |
+|        6 | 2026-03-12 |          6 |
+|        7 | 2026-04-20 |          7 |
++----------+------------+------------+
+3 rows in set (0.0009 sec)
+ MySQL  localhost:3306 ssl  taller2  SQL > insert into venta_detalle(id_venta, id_producto, cantidad) value(7, 2, 2);
+Query OK, 1 row affected (0.0096 sec)
+ MySQL  localhost:3306 ssl  taller2  SQL > select * from venta_detalle;
++------------------+----------+-------------+----------+
+| id_venta_detalle | id_venta | id_producto | cantidad |
++------------------+----------+-------------+----------+
+|                1 |        1 |           1 |        5 |
+|                2 |        1 |           2 |        3 |
+|                3 |        1 |           2 |        1 |
+|                8 |        7 |           2 |        2 |
++------------------+----------+-------------+----------+
+4 rows in set (0.0008 sec)
+ MySQL  localhost:3306 ssl  taller2  SQL > start transaction;
+Query OK, 0 rows affected (0.0072 sec)
+ MySQL  localhost:3306 ssl  taller2  ★  SQL > insert into venta(fecha, id_cliente) values('2026-04-20', 5);
+ERROR: 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`taller2`.`venta`, CONSTRAINT `venta_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `cliente` (`id_cliente`) ON DELETE SET NULL ON UPDATE CASCADE)
+ MySQL  localhost:3306 ssl  taller2  ★  SQL > insert into venta(fecha, id_cliente) values('2026-04-20', 1);
+ERROR: 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`taller2`.`venta`, CONSTRAINT `venta_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `cliente` (`id_cliente`) ON DELETE SET NULL ON UPDATE CASCADE)
+ MySQL  localhost:3306 ssl  taller2  ★  SQL > insert into venta(fecha, id_cliente) values('2026-04-20', 6);
+Query OK, 1 row affected (0.0089 sec)
+ MySQL  localhost:3306 ssl  taller2  ★  SQL > select * from venta;
++----------+------------+------------+
+| id_venta | fecha      | id_cliente |
++----------+------------+------------+
+|        1 | 2026-03-09 |          6 |
+|        6 | 2026-03-12 |          6 |
+|        7 | 2026-04-20 |          7 |
+|       10 | 2026-04-20 |          6 |
++----------+------------+------------+
+4 rows in set (0.0008 sec)
+ MySQL  localhost:3306 ssl  taller2  ★  SQL > insert into venta_detalle(id_venta, id_producto, cantidad) value(10, 1, 3);
+Query OK, 1 row affected (0.0011 sec)
+ MySQL  localhost:3306 ssl  taller2  ★  SQL > commit;
+Query OK, 0 rows affected (0.0080 sec)
+ MySQL  localhost:3306 ssl  taller2  SQL > start transaction;
+Query OK, 0 rows affected (0.0005 sec)
+ MySQL  localhost:3306 ssl  taller2  ★  SQL > insert into venta(fecha, id_cliente) values('2026-04-20', 7);
+Query OK, 1 row affected (0.0011 sec)
+ MySQL  localhost:3306 ssl  taller2  ★  SQL > select * from venta;
++----------+------------+------------+
+| id_venta | fecha      | id_cliente |
++----------+------------+------------+
+|        1 | 2026-03-09 |          6 |
+|        6 | 2026-03-12 |          6 |
+|        7 | 2026-04-20 |          7 |
+|       10 | 2026-04-20 |          6 |
+|       11 | 2026-04-20 |          7 |
++----------+------------+------------+
+5 rows in set (0.0009 sec)
+ MySQL  localhost:3306 ssl  taller2  ★  SQL > insert into venta_detalle(id_venta, id_producto, cantidad) value(11, 3, 1);
+Query OK, 1 row affected (0.0009 sec)
+ MySQL  localhost:3306 ssl  taller2  ★  SQL > select * from venta_detalle;
++------------------+----------+-------------+----------+
+| id_venta_detalle | id_venta | id_producto | cantidad |
++------------------+----------+-------------+----------+
+|                1 |        1 |           1 |        5 |
+|                2 |        1 |           2 |        3 |
+|                3 |        1 |           2 |        1 |
+|                8 |        7 |           2 |        2 |
+|                9 |       10 |           1 |        3 |
+|               10 |       11 |           3 |        1 |
++------------------+----------+-------------+----------+
+6 rows in set (0.0009 sec)
+ MySQL  localhost:3306 ssl  taller2  ★  SQL > rollback;
+Query OK, 0 rows affected (0.0084 sec)
+ MySQL  localhost:3306 ssl  taller2  SQL > select * from venta;
++----------+------------+------------+
+| id_venta | fecha      | id_cliente |
++----------+------------+------------+
+|        1 | 2026-03-09 |          6 |
+|        6 | 2026-03-12 |          6 |
+|        7 | 2026-04-20 |          7 |
+|       10 | 2026-04-20 |          6 |
++----------+------------+------------+
+4 rows in set (0.0009 sec)
+ MySQL  localhost:3306 ssl  taller2  SQL > select * from venta_detalle;
++------------------+----------+-------------+----------+
+| id_venta_detalle | id_venta | id_producto | cantidad |
++------------------+----------+-------------+----------+
+|                1 |        1 |           1 |        5 |
+|                2 |        1 |           2 |        3 |
+|                3 |        1 |           2 |        1 |
+|                8 |        7 |           2 |        2 |
+|                9 |       10 |           1 |        3 |
++------------------+----------+-------------+----------+
+5 rows in set (0.0010 sec)
+ MySQL  localhost:3306 ssl  taller2  SQL >
